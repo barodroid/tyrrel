@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="cat.helm.tyrrel">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--&lt;!&ndash; networkSecurityConfig Backport for Android < N&ndash;&gt;-->
-    <!--<meta-data-->
-        <!--android:name="android.security.net.config"-->
-        <!--android:resource="@xml/network_security_config" />-->
 
     <application
         android:allowBackup="true"
@@ -20,16 +15,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ProveOfConceptActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <!-- Mqtt Service -->
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+
+        <activity
+            android:name=".power.PowerMeterActivity"
+            android:label="@string/title_activity_power_metter"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".thermostat.ThermostatActivity" />
+        <activity
+            android:name=".thermostat.scheduler.RegularScheduleActivity"
+            android:label="@string/title_activity_regular_schedule"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".thermostat.scheduler.ExceptScheduleActivity"
+            android:label="@string/title_activity_except_schedule"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MenuActivity"
+            android:label="Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Mqtt Service -->
-        <service android:name="org.eclipse.paho.android.service.MqttService">
-        </service>
     </application>
 
 </manifest>

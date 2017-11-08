@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import cat.helm.tyrrel.utils.SslHelper;
 
 
-public class MainActivity extends AppCompatActivity {
+public class ProveOfConceptActivity extends AppCompatActivity {
 
     private static final String TAG = "TyrrelMainActivity";
     private static final String SERVER_URI = "ssl://dijkstra.auge.cat:8883";
