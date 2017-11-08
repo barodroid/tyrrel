@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivThermostat"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:adjustViewBounds="true"
@@ -19,7 +19,7 @@
         android:cropToPadding="true"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/ivPowermeter"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         app:srcCompat="@drawable/ic_thermostat" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivPowermeter"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:adjustViewBounds="true"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/ivThermostat"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_power_meter" />
 
