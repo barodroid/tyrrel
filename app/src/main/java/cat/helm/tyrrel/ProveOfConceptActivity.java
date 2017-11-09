@@ -1,5 +1,6 @@
 package cat.helm.tyrrel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cat.helm.tyrrel.utils.SslHelper;
 
-
+@SuppressLint("SetTextI18n")
 public class ProveOfConceptActivity extends AppCompatActivity {
 
     private static final String TAG = "TyrrelMainActivity";
