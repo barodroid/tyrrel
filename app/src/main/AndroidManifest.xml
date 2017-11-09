@@ -19,9 +19,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ProveOfConceptActivity">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
         <!-- Mqtt Service -->
@@ -30,8 +30,8 @@
         <activity
             android:name=".power.PowerMeterActivity"
             android:label="@string/title_activity_power_metter"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MenuActivity"/>
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".thermostat.ThermostatActivity" />
         <activity
             android:name=".thermostat.scheduler.RegularScheduleActivity"
@@ -41,10 +41,10 @@
             android:name=".thermostat.scheduler.ExceptScheduleActivity"
             android:label="@string/title_activity_except_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MenuActivity"
+        <activity
+            android:name=".MenuActivity"
             android:label="Main"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
