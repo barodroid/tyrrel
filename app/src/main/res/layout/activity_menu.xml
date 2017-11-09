@@ -1,45 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cat.helm.tyrrel.MenuActivity"
-    tools:ignore="HardcodedText"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context="cat.helm.tyrrel.MenuActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main_menu" />
 
 
-    <ImageView
-        android:id="@+id/ivThermostat"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/rounded_rect_shape"
-        android:contentDescription="Thermostat"
-        android:cropToPadding="true"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivPowermeter"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_thermostat" />
-
-    <ImageView
-        android:id="@+id/ivPowermeter"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/rounded_rect_shape"
-        android:contentDescription="Power meter"
-        android:cropToPadding="true"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ivThermostat"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_power_meter" />
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

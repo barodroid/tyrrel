@@ -28,7 +28,8 @@
         <activity
             android:name=".power.PowerMeterActivity"
             android:label="@string/title_activity_power_metter"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MenuActivity"/>
         <activity android:name=".thermostat.ThermostatActivity" />
         <activity
             android:name=".thermostat.scheduler.RegularScheduleActivity"
@@ -39,7 +40,9 @@
             android:label="@string/title_activity_except_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MenuActivity"
-            android:label="Main">
+            android:label="Main"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
