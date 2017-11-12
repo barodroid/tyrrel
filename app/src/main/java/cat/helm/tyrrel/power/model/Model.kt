@@ -5,19 +5,22 @@ import com.squareup.moshi.Json
 /**
  * Created by hussein on 12/11/2017.
  */
-data class Query(
-        val device: String,
-        @Json(name = "query_id") val queryId: String,
-        val command: String)
 
 data class PowerMeterReading(
-        val device: String,
         @Json(name = "query_id") val queryId: String,
-        val command: String,
-        @Json(name = "values") val read: PowerMeterRead)
+        @Json(name = "values") val read: PowerMeterRead?)
+
+
+data class PowerMeterQuery(
+//        private val powerQueryJson = "{\"device\": \"powermeter\", \"keys\": [\"power\", \"volt\"], \"command\": \"get\", \"query_id\": 200001}"
+        val device: String = "powermeter",
+        @Json(name = "keys") val keys: Array<String> = arrayOf("power"),
+        val command: String = "get",
+        @Json(name = "query_id") val queryId: String
+)
 
 data class PowerMeterRead(
-        val volt: Double,
+        val volt: Double?,
         val power: Double
 )
 
