@@ -7,22 +7,46 @@ import android.os.Handler
 import android.util.Log
 import cat.helm.tyrrel.BaseMqttActivity
 import cat.helm.tyrrel.R
+import cat.helm.tyrrel.power.model.PowerMeterReading
+import com.squareup.moshi.KotlinJsonAdapterFactory
+import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_except_schedule.*
+import kotlinx.android.synthetic.main.content_power_metter.*
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
 import org.eclipse.paho.client.mqttv3.MqttMessage
+import java.util.*
 
 
 class PowerMeterActivity : BaseMqttActivity() {
+    val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
+    val powerMeterReadingAdapter = moshi.adapter(PowerMeterReading::class.java)
+
+    val list: ArrayList<PowerMeterReading> = ArrayList()
+
     override val mqttActionListner: IMqttMessageListener?
         get() = IMqttMessageListener { topic: String, message: MqttMessage ->
+            val payload = String(message.payload)
+//            val test = powerMeterReadingAdapter.fromJson(String(message.payload))
+
             // message Arrived!
-            if ( String(message.payload).startsWith("{\"device\": \"powermeter\",")) {
-                Log.i(TAG, "Message: " + topic + " : " + String(message.getPayload()))
+            val isPowerReading = payload.startsWith("{\"device\": \"powermeter\",") and
+                    payload.contains(" \"command\": \"readings\"", true)
+
+            if (isPowerReading) {
+                Log.i(TAG, "Message: $topic : $payload")
+                val issue = powerMeterReadingAdapter.fromJson(String(message.payload))
+                if (issue != null) {
+                    list.add(issue)
+                }
+
                 Handler(mainLooper).post({
                     //TODO: Main thread job
+                    speedView.setSpeedAt(issue!!.read.power.toFloat())
                 })
             }
-
 
         }
 
@@ -41,6 +65,9 @@ class PowerMeterActivity : BaseMqttActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        speedView.maxSpeed = 6000
+        speedView.unit = "W"
+
 
     }
 
