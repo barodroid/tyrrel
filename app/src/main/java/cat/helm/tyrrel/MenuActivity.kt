@@ -1,10 +1,9 @@
 package cat.helm.tyrrel
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import cat.helm.tyrrel.power.PowerMeterActivity
+import cat.helm.tyrrel.thermostat.ThermostatActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.content_main_menu.*
 
@@ -20,7 +19,7 @@ class MenuActivity : AppCompatActivity() {
         }
 
         ivThermostat.setOnClickListener {
-            Snackbar.make(clMenuActivity, "Not implemented yet", Toast.LENGTH_SHORT).show()
+            ThermostatActivity.start(this)
         }
     }
 }
