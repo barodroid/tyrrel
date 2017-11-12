@@ -55,6 +55,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
                     addToHistory("Connected to: " + serverURI)
 //                    buttonConnect.setText("Connected")
                 }
+                onConnectionComplete()
             }
 
             override fun connectionLost(cause: Throwable) {
@@ -105,6 +106,8 @@ abstract class BaseMqttActivity : AppCompatActivity() {
         }
 
     }
+
+    abstract fun onConnectionComplete()
 
     abstract val mqttActionListner: IMqttMessageListener?
 

@@ -17,6 +17,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 
 
 class ThermostatActivity : BaseMqttActivity() {
+
+
     private val thermostatReadingAdapter = jsonTool.adapter(ThermostatReading::class.java)
     private val thermostatQueryAdapter = jsonTool.adapter(ThermostatQuery::class.java)
     private val thermostatQuery = ThermostatQuery(queryId = "200002")
@@ -61,23 +63,6 @@ class ThermostatActivity : BaseMqttActivity() {
             setDisplayShowHomeEnabled(true)
         }
 
-        object : CountDownTimer(30000, 1000) {
-
-
-            override fun onTick(millisUntilFinished: Long) {
-                nextUpdate.text = String.format("seconds remaining: %d", millisUntilFinished / 1000)
-            }
-
-            override fun onFinish() {
-                try {
-                    this.start()
-                    publishMessage(thermostatQueryJson)
-
-                } catch (ex: Exception) {
-
-                }
-            }
-        }.start()
 
 //        button.setOnClickListener({ view ->
 //            isRunning = true
@@ -96,6 +81,24 @@ class ThermostatActivity : BaseMqttActivity() {
         super.onPause()
     }
 
+    override fun onConnectionComplete() {
+        object : CountDownTimer(30000, 1000) {
+
+
+            override fun onTick(millisUntilFinished: Long) {
+                nextUpdate.text = String.format("next update: %d", millisUntilFinished / 1000)
+            }
+
+            override fun onFinish() {
+                try {
+                    this.start()
+                    publishMessage(thermostatQueryJson)
+
+                } catch (ex: Exception) {
+
+                }
+            }
+        }.start()    }
     companion object {
 
         fun start(context: Activity) {

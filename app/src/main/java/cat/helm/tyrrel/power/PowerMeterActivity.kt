@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import cat.helm.tyrrel.BaseMqttActivity
 import cat.helm.tyrrel.R
 import cat.helm.tyrrel.power.model.PowerMeterQuery
@@ -64,16 +63,21 @@ class PowerMeterActivity : BaseMqttActivity() {
 
         speedView.maxSpeed = 6000
         speedView.unit = "W"
-        button.setOnClickListener({ view ->
-            isRunning = true
-            pollingThread.start()
-            view.visibility = View.GONE
-        })
+//        button.setOnClickListener({ view ->
+//            isRunning = true
+//            pollingThread.start()
+//            view.visibility = View.GONE
+//        })
     }
 
     override fun onPause() {
         isRunning = false
         super.onPause()
+    }
+
+    override fun onConnectionComplete() {
+        isRunning = true
+        pollingThread.start()
     }
 
     companion object {
