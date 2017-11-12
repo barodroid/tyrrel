@@ -45,7 +45,7 @@ class PowerMeterActivity : BaseMqttActivity() {
             // message Arrived!
 
             if (isPowerReading(payload)) {
-                Log.i(TAG, "Message: $topic : $payload")
+                Log.i(cat.helm.tyrrel.TAG, "Message: $topic : $payload")
                 val issue = powerMeterReadingAdapter.fromJson(payload)
 
 

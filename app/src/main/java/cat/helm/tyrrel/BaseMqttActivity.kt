@@ -13,10 +13,10 @@ import org.eclipse.paho.client.mqttv3.*
 
 const val SERVER_URI = "ssl://dijkstra.auge.cat:8883"
 const val TOPIC = "smarthome"
+const val TAG = "MQTT"
 
 abstract class BaseMqttActivity : AppCompatActivity() {
     private val baseClientId = "Tyrrel    Client: " + Build.BRAND + "::" + Build.MODEL + "::" + Build.ID
-    internal val TAG = "MQTT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
