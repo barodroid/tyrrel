@@ -10,8 +10,6 @@ import cat.helm.tyrrel.BaseMqttActivity
 import cat.helm.tyrrel.R
 import cat.helm.tyrrel.power.model.PowerMeterQuery
 import cat.helm.tyrrel.power.model.PowerMeterReading
-import com.squareup.moshi.KotlinJsonAdapterFactory
-import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_except_schedule.*
 import kotlinx.android.synthetic.main.content_power_metter.*
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener
@@ -19,12 +17,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 
 
 class PowerMeterActivity : BaseMqttActivity() {
-    private val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-    private val powerMeterReadingAdapter = moshi.adapter(PowerMeterReading::class.java)
-    private val powerMeterQueryAdapter = moshi.adapter(PowerMeterQuery::class.java)
+    private val powerMeterReadingAdapter = jsonTool.adapter(PowerMeterReading::class.java)
+    private val powerMeterQueryAdapter = jsonTool.adapter(PowerMeterQuery::class.java)
     private val powerMeterQuery = PowerMeterQuery(queryId = "200001")
     private val powerQueryJson = powerMeterQueryAdapter.toJson(powerMeterQuery)
 

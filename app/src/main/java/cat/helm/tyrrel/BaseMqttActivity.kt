@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import cat.helm.tyrrel.utils.SslHelper
+import com.squareup.moshi.KotlinJsonAdapterFactory
+import com.squareup.moshi.Moshi
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
@@ -17,6 +19,9 @@ const val TAG = "MQTT"
 
 abstract class BaseMqttActivity : AppCompatActivity() {
     private val baseClientId = "Tyrrel    Client: " + Build.BRAND + "::" + Build.MODEL + "::" + Build.ID
+    internal val jsonTool = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
