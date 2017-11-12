@@ -11,11 +11,11 @@ import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
 
+const val SERVER_URI = "ssl://dijkstra.auge.cat:8883"
+const val TOPIC = "smarthome"
 
 abstract class BaseMqttActivity : AppCompatActivity() {
-    private val SERVER_URI = "ssl://dijkstra.auge.cat:8883"
-    private val SUBSCRIPTION_TOPIC = "smarthome"
-    private val BASE_CLIENT_ID = "TyrrelClient: " + Build.BRAND + "::" + Build.MODEL + "::" + Build.ID
+    private val baseClientId = "Tyrrel    Client: " + Build.BRAND + "::" + Build.MODEL + "::" + Build.ID
     internal val TAG = "MQTT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +27,8 @@ abstract class BaseMqttActivity : AppCompatActivity() {
     private lateinit var clientId: String
     private var mqttAndroidClient: MqttAndroidClient? = null
 
-    private val publishTopic = "smarthome"
-
     fun init() {
-        clientId = BASE_CLIENT_ID + System.currentTimeMillis()
+        clientId = baseClientId + System.currentTimeMillis()
         sslHelper = SslHelper(applicationContext)
         subscribe()
     }
@@ -105,7 +103,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
 
     fun subscribeToTopic() {
         try {
-            mqttAndroidClient!!.subscribe(SUBSCRIPTION_TOPIC, 0, null, object : IMqttActionListener {
+            mqttAndroidClient!!.subscribe(TOPIC, 0, null, object : IMqttActionListener {
                 override fun onSuccess(asyncActionToken: IMqttToken) {
                     addToHistory("Subscribed!")
                 }
@@ -115,7 +113,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
                 }
             })
 
-            mqttAndroidClient!!.subscribe(SUBSCRIPTION_TOPIC, 0, mqttActionListner)
+            mqttAndroidClient!!.subscribe(TOPIC, 0, mqttActionListner)
 
 
         } catch (ex: MqttException) {
@@ -138,7 +136,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
         try {
             val mqttMessage = MqttMessage()
             mqttMessage.payload = message.toByteArray()
-            mqttAndroidClient!!.publish(publishTopic, mqttMessage)
+            mqttAndroidClient!!.publish(TOPIC, mqttMessage)
             addToHistory("Message Published", false)
             if (!mqttAndroidClient!!.isConnected) {
                 addToHistory(mqttAndroidClient!!.bufferedMessageCount.toString() + " messages in buffer.")
@@ -152,7 +150,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
 
 
     override fun onStop() {
+        mqttAndroidClient!!.close()
         super.onStop()
-        mqttAndroidClient!!.disconnect()
     }
 }
