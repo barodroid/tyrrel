@@ -13,6 +13,8 @@ import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
 
+
+
 const val SERVER_URI = "ssl://dijkstra.auge.cat:8883"
 const val TOPIC = "smarthome"
 const val TAG = "MQTT"
@@ -155,7 +157,21 @@ abstract class BaseMqttActivity : AppCompatActivity() {
 
 
     override fun onStop() {
-        mqttAndroidClient!!.close()
+        disconnect()
         super.onStop()
+    }
+
+    fun disconnect() {
+        if (null != mqttAndroidClient && mqttAndroidClient!!.isConnected()) {
+            try {
+                mqttAndroidClient!!.unsubscribe(TOPIC)
+                mqttAndroidClient!!.disconnect()
+                mqttAndroidClient!!.unregisterResources()
+                mqttAndroidClient = null
+            } catch (e: MqttException) {
+                e.printStackTrace()
+            }
+
+        }
     }
 }

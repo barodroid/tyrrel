@@ -4,4 +4,5 @@
     <string name="title_activity_regular_schedule">RegularScheduleActivity</string>
     <string name="title_activity_except_schedule">ExceptScheduleActivity</string>
     <string name="title_activity_thermostat">ThermostatActivity</string>
+    <string name="temperature_template">%f ºC</string>
 </resources>

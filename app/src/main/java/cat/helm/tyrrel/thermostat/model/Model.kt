@@ -8,12 +8,12 @@ import com.squareup.moshi.Json
 
 data class ThermostatReading(
         @Json(name = "query_id") val queryId: String,
-        @Json(name = "values") val read: ThermostatRead?)
+        @Json(name = "values") val values: ThermostatRead?)
 
 data class ThermostatQuery(
 //{"device": "thermostat", "keys": ["curtemp", "setpoint", "isheating"], "command": "get", "query_id": 830628922}        val device: String = "powermeter",
         val device: String = "thermostat",
-        @Json(name = "keys") val keys: Array<String> = arrayOf("curtemp, setpoint, isheating "),
+        @Json(name = "keys") val keys: Array<String> = arrayOf("curtemp", "setpoint", "isheating"),
         val command: String = "get",
         @Json(name = "query_id") val queryId: String
 )
@@ -21,7 +21,7 @@ data class ThermostatQuery(
 data class ThermostatRead(
         val curtemp: Double?,
         val setpoint: Double,
-        val isheating: Double
+        val isheating: Int
 )
 
 enum class Command(val text: String) {
