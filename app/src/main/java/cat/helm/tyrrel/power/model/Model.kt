@@ -8,7 +8,7 @@ import com.squareup.moshi.Json
 
 data class PowerMeterReading(
         @Json(name = "query_id") val queryId: String,
-        @Json(name = "values") val read: PowerMeterRead?)
+        val values: PowerMeterRead?)
 
 
 data class PowerMeterQuery(
