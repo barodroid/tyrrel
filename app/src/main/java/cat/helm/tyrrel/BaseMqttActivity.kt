@@ -27,6 +27,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
     private lateinit var clientId: String
     private var mqttAndroidClient: MqttAndroidClient? = null
 
+    private val publishTopic = "smarthome"
 
     fun init() {
         clientId = BASE_CLIENT_ID + System.currentTimeMillis()
@@ -132,6 +133,23 @@ abstract class BaseMqttActivity : AppCompatActivity() {
         }
 
     }
+
+    fun publishMessage(message: String) {
+        try {
+            val mqttMessage = MqttMessage()
+            mqttMessage.payload = message.toByteArray()
+            mqttAndroidClient!!.publish(publishTopic, mqttMessage)
+            addToHistory("Message Published", false)
+            if (!mqttAndroidClient!!.isConnected) {
+                addToHistory(mqttAndroidClient!!.bufferedMessageCount.toString() + " messages in buffer.")
+            }
+        } catch (e: MqttException) {
+            System.err.println("Error Publishing: " + e.message)
+            e.printStackTrace()
+        }
+
+    }
+
 
     override fun onStop() {
         super.onStop()

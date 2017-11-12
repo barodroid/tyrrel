@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import cat.helm.tyrrel.BaseMqttActivity
 import cat.helm.tyrrel.R
 import cat.helm.tyrrel.power.model.PowerMeterReading
@@ -18,13 +19,18 @@ import java.util.*
 
 
 class PowerMeterActivity : BaseMqttActivity() {
-    val moshi = Moshi.Builder()
+    //    private val handler = Handler(Looper.getMainLooper())
+//    private val runnable = Runnable { handler.postDelayed( {publishMessage() }, 1000) }
+    private val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
     val powerMeterReadingAdapter = moshi.adapter(PowerMeterReading::class.java)
 
     val list: ArrayList<PowerMeterReading> = ArrayList()
+
+    private val powerQuery = "{\"device\": \"powermeter\", \"keys\": [\"power\", \"volt\"], \"command\": \"get\", \"query_id\": 200001}"
+
 
     override val mqttActionListner: IMqttMessageListener?
         get() = IMqttMessageListener { topic: String, message: MqttMessage ->
@@ -44,7 +50,7 @@ class PowerMeterActivity : BaseMqttActivity() {
 
                 Handler(mainLooper).post({
                     //TODO: Main thread job
-                    speedView.setSpeedAt(issue!!.read.power.toFloat())
+                    speedView.speedTo(issue!!.read.power.toFloat())
                 })
             }
 
@@ -67,8 +73,16 @@ class PowerMeterActivity : BaseMqttActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         speedView.maxSpeed = 6000
         speedView.unit = "W"
-
+        speedView.stop()
+        button.setOnClickListener(View.OnClickListener { v ->
+            Thread({
+                while (true) {
+                    publishMessage(powerQuery)
+                    Thread.sleep(1000)
+                }
+            }).start()
+            v.visibility = View.GONE
+        })
 
     }
-
 }
