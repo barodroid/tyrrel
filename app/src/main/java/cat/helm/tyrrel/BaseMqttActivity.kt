@@ -10,6 +10,8 @@ import cat.helm.tyrrel.utils.SslHelper
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
+
+
 abstract class BaseMqttActivity : AppCompatActivity() {
     private val SERVER_URI = "ssl://dijkstra.auge.cat:8883"
     private val SUBSCRIPTION_TOPIC = "smarthome"
@@ -121,11 +123,13 @@ abstract class BaseMqttActivity : AppCompatActivity() {
 
     }
 
-    private fun addToHistory(mainText: String) {
+    private fun addToHistory(mainText: String, showToast: Boolean = true) {
         Log.i(TAG, "LOG: " + mainText)
 
-        Snackbar.make(findViewById<View>(android.R.id.content), mainText, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        if (showToast) {
+            Snackbar.make(findViewById<View>(android.R.id.content), mainText, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
 
     }
 
