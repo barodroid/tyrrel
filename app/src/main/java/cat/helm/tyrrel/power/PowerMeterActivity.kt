@@ -43,7 +43,10 @@ class PowerMeterActivity : BaseMqttActivity() {
 
 
                 Handler(mainLooper).post({
-                    speedView.speedTo(read!!.values!!.power.toFloat())
+                    read!!.values?.maxPower?.let { maxPower ->
+                        speedView.maxSpeed = maxPower
+                    }
+                    speedView.speedTo(read.values!!.power.toFloat())
                 })
             }
 
@@ -61,7 +64,7 @@ class PowerMeterActivity : BaseMqttActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        speedView.maxSpeed = 6000
+        speedView.maxSpeed = 10
         speedView.unit = "W"
 //        button.setOnClickListener({ view ->
 //            isRunning = true
@@ -77,6 +80,7 @@ class PowerMeterActivity : BaseMqttActivity() {
 
     override fun onConnectionComplete() {
         isRunning = true
+        publishMessage(powerMeterQueryAdapter.toJson(PowerMeterQuery(queryId = "200003", keys =  arrayOf("power", "maxpower"))))
         pollingThread.start()
     }
 

@@ -21,7 +21,8 @@ data class PowerMeterQuery(
 
 data class PowerMeterRead(
         val volt: Double?,
-        val power: Double
+        val power: Double,
+        @Json(name = "maxpower") val maxPower: Int?
 )
 
 enum class Command(val text: String) {

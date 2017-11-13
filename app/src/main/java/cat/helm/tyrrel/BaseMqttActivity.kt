@@ -146,7 +146,7 @@ abstract class BaseMqttActivity : AppCompatActivity() {
         try {
             val mqttMessage = MqttMessage()
             mqttMessage.payload = message.toByteArray()
-            mqttAndroidClient!!.publish(TOPIC, mqttMessage)
+            mqttAndroidClient?.publish(TOPIC, mqttMessage)
             addToHistory("Message Published", false)
             if (!mqttAndroidClient!!.isConnected) {
                 addToHistory(mqttAndroidClient!!.bufferedMessageCount.toString() + " messages in buffer.")
